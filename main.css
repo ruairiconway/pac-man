@@ -1,0 +1,85 @@
+/* GENERAL */
+
+:root {
+    --background: #A5C4D4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+/* GRID */
+
+.grid {
+    box-sizing: content-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 420px;
+    height: 420px;
+    border: 2px solid black;
+    background: var(--background);
+}
+
+.grid div {
+    width: 15px;
+    height: 15px;
+}
+
+.pac-dot {
+    background: green;
+    border: 5px solid var(--background);
+}
+
+.wall {
+    background: blue;
+}
+
+.ghost-lair {
+    background: grey;
+}
+
+.power-pellet {
+    background: green;
+    border-radius: 7.5px;
+}
+
+.pac-man {
+    background: yellow;
+    border-radius: 7.5px;
+    border: none;
+}
+
+.blinky {
+    background: red;
+    border: none;
+}
+
+.pinky {
+    background: pink;
+    border: none;
+}
+
+.inky {
+    background: aqua;
+    border: none;
+}
+
+.clyde {
+    background: orange;
+    border: none;
+}
