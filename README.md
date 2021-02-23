@@ -4,8 +4,8 @@
 A build of the game pac-man using pure html, css, and vanilla js.
 
 ## View
-- Live:
-- Code:
+- Live: https://ruairiconway.github.io/pac-man/
+- Code: https://github.com/ruairiconway/pac-man
 
 ## Highlights
 - Game is rendered using an array that dictates the layout + starting positions
