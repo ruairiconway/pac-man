@@ -1,12 +1,11 @@
 'use strict'
 
-// VARIABLES
-const width = 28
+// ============== VARIABLES ==============
+const width = 25
 const grid = document.querySelector('.grid')
 const score = document.querySelector('.score')
 let scoreCount = 0
 let squares = []
-
 // Grid
     // 0 - pac-dots
     // 1 - wall
@@ -14,38 +13,51 @@ let squares = []
     // 3 - power-pellet
     // 4 - empty
 const layout = [
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,3,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,3,1,
-    1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-    4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
-    1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
-    1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,3,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,3,1,
-    1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,
-    1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,
-    1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1,
-    1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
-    1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,3,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,3,1,
+    1,0,1,1,0,1,0,0,0,1,1,1,0,1,1,1,0,0,0,1,0,1,1,0,1,
+    1,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,1,
+    1,0,1,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,0,1,
+    1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
+    1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,0,1,1,1,1,0,1,0,1,
+    1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,
+    1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,
+    1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,
+    1,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,0,0,0,0,1,
+    1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,1,1,1,1,1,1,1,
+    4,4,4,4,4,4,4,4,1,4,1,2,2,2,1,4,1,4,4,4,4,4,4,4,4,
+    1,1,1,1,1,0,1,1,1,4,1,2,2,2,1,4,1,1,1,0,1,1,1,1,1,
+    1,1,1,1,1,0,1,1,1,4,1,1,1,1,1,4,1,1,1,0,1,1,1,1,1,
+    1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
+    1,0,1,1,1,0,1,1,0,1,1,1,4,1,1,1,0,1,1,0,1,1,1,0,1,
+    1,0,1,0,0,0,0,0,0,0,1,0,4,0,1,0,0,0,0,0,0,0,1,0,1,
+    1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,
+    1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1,
+    1,0,1,1,0,1,1,0,0,0,1,0,0,0,1,0,0,0,1,1,0,1,1,0,1,
+    1,0,0,0,0,0,1,1,0,1,1,1,0,1,1,1,0,1,1,0,0,0,0,0,1,
+    1,0,1,1,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,1,1,1,0,1,
+    1,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 ]
+// Target score
+function createTargetScore(layout) {
+    let target = 0
+    for (let block of layout) {
+        if (block === 0) {
+            target += 1
+        } else if (block === 3) {
+            target += 10
+        }
+    }
+    return target
+}
+let targetScore = createTargetScore(layout)
+
+
+//  ============== RENDER BOARD ==============
 
 function createBoard() {
-    for (let i = 0; i < layout.length; i++) {
+    for (let i = 0; i < width*width; i++) {
         const square = document.createElement('div')
         grid.appendChild(square)
         squares.push(square)
@@ -67,19 +79,16 @@ function createBoard() {
 createBoard()
 
 
+// ============== PACMAN ==============
 // pac-man start
-
-let pacmanCurrentIndex = 490
+let pacmanCurrentIndex = 437
 squares[pacmanCurrentIndex].classList.add('pac-man')
 
-
 // Controls
-
 function control(e) {
     squares[pacmanCurrentIndex].classList.remove('pac-man')
     switch(e.keyCode) {
-        case 38:
-            console.log('pressed up')
+        case 38: // up
             if (
                 !squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&
                 !squares[pacmanCurrentIndex - width].classList.contains('wall') &&
@@ -88,8 +97,7 @@ function control(e) {
                 pacmanCurrentIndex -= width
             }
         break
-        case 40:
-            console.log('pressed down')
+        case 40: // down
             if (
                 !squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') &&
                 !squares[pacmanCurrentIndex + width].classList.contains('wall', 'ghost-lair') &&
@@ -98,10 +106,9 @@ function control(e) {
                 pacmanCurrentIndex += width
             }
         break
-        case 37:
-            console.log('pressed left')
-            if (pacmanCurrentIndex === 364) {
-                pacmanCurrentIndex = 391
+        case 37: // left
+            if (pacmanCurrentIndex === 300) {
+                pacmanCurrentIndex = 324
             } else if (
                 !squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') &&
                 !squares[pacmanCurrentIndex - 1].classList.contains('wall') &&
@@ -110,10 +117,9 @@ function control(e) {
                 pacmanCurrentIndex -= 1
             }
         break
-        case 39:
-            console.log('pressed right')
-            if (pacmanCurrentIndex === 391) {
-                pacmanCurrentIndex = 364
+        case 39: // right
+            if (pacmanCurrentIndex === 324) {
+                pacmanCurrentIndex = 300
             } else if (
                 !squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') &&
                 !squares[pacmanCurrentIndex + 1].classList.contains('wall') &&
@@ -133,6 +139,7 @@ function control(e) {
 document.addEventListener('keydown', control)
 
 
+// ============== PAC DOT / PELLETS ==============
 function pacDotEaten() {
     if (squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
         squares[pacmanCurrentIndex].classList.remove('pac-dot')
@@ -141,9 +148,7 @@ function pacDotEaten() {
     }
 }
 
-
 // Power pellet
-
 function powerPelletEaten() {
     if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
         squares[pacmanCurrentIndex].classList.remove('power-pellet')
@@ -161,9 +166,7 @@ function powerPelletEaten() {
 }
 
 
-
-// Ghosts
-
+// ============== GHOSTS ==============
 class Ghost {
     constructor(className, startIndex, speed) {
         this.className = className
@@ -176,10 +179,10 @@ class Ghost {
 }
 
 const ghosts = [
-    new Ghost('blinky', 348, 250),
-    new Ghost('pinky', 376, 400),
-    new Ghost('inky', 351, 300),
-    new Ghost('clyde', 379, 500),
+    new Ghost('blinky', 311, 250),
+    new Ghost('pinky', 336, 400),
+    new Ghost('inky', 313, 300),
+    new Ghost('clyde', 338, 500),
 ]
 
 ghosts.forEach(ghost => {
@@ -190,7 +193,6 @@ ghosts.forEach(ghost => {
 ghosts.forEach(ghost => moveGhost(ghost))
 
 function moveGhost(ghost) {
-    console.log('moved ghost')
     const directions = [-1, +1, -width, +width]
     let direction = directions[Math.floor(Math.random() * directions.length)]
 
@@ -217,8 +219,6 @@ function moveGhost(ghost) {
         if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
             squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared')
             ghost.currentIndex = ghost.startIndex
-            scoreCount += 100
-            score.innerHTML = scoreCount
             squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
         }
         watchGameOver()
@@ -244,7 +244,11 @@ function watchGameOver() {
 
 function watchGameWin() {
 
-    if (scoreCount >= 274) {
+    let dotCheck = document.querySelectorAll('.pac-dot').length
+    let pelletCheck = document.querySelectorAll('.power-pellet').length
+    let remaining = dotCheck + pelletCheck
+
+    if (scoreCount >= targetScore || remaining === 0) {
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
         document.removeEventListener('keydown', control)
         score.innerHTML = `You Win`
@@ -253,6 +257,5 @@ function watchGameWin() {
 }
 
 
-// ON LOAD
-
+// ============== ON LOAD ==============
 score.innerHTML = scoreCount
