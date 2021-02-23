@@ -9,6 +9,7 @@ html, body {
 }
 
 body {
+    touch-action: manipulation; /* prevent default zoom on double tap */
     min-height: 100vh;
     min-height: -webkit-fill-available;
     background: #A3A3A3;
