@@ -1,8 +1,21 @@
 # pac-man
 
-Includes:
-- html doctype
-- relevant html meta tags for charset, viewport and edge
-- linked main css and main js files
-- linked normalize css and jQuery js CDNs
-- semantic tag prompts
+## Brief
+A build of the game pac-man using pure html, css, and vanilla js.
+
+## View
+- Live:
+- Code:
+
+## Highlights
+- Game is rendered using an array that dictates the layout + starting positions
+- Pac-Man can be controlled by keyboard arrows or buttons on screen
+- Pac-Man can eat ghosts after crossing 'power pellets'
+- Game ends when Pac-Man eats all the dots (win condition) or if ghost catches Pac-Man (lose condition)
+- Buttons are keyboard accessible + allows the game to work on mobile
+- Aria labelling included
+
+## Future Edits
+- Adding in a start button to trigger the game
+- Smarter ghost behavior
+- press and hold buttons for direction (insetad of repeatedly tapping)
